@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunil Venugopal — The Workshop</title>
+  <meta name="description" content="Builder, thinker, maker. What I'm working on, what I'm thinking about, and where I've been.">
+  <meta name="theme-color" content="#1a1a1a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #111110;
+      --bg-surface: #1a1a18;
+      --bg-card: #222220;
+      --bg-card-hover: #2a2a27;
+      --text: #e8e4dd;
+      --text-muted: #9b9688;
+      --text-dim: #6b6760;
+      --accent: #d4a053;
+      --accent-glow: rgba(212, 160, 83, 0.15);
+      --accent-secondary: #7ab8a8;
+      --border: #333330;
+      --border-subtle: #2a2a27;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius: 12px;
+      --max-width: 1100px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-color: var(--border) var(--bg);
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(17, 17, 16, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      padding: 0.7rem 2rem;
+      background: rgba(17, 17, 16, 0.95);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 20%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-label {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-label::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 .highlight {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .scroll-hint svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--text-dim);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+      50% { opacity: 1; transform: translateX(-50%) translateY(5px); }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 6rem 2rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+
+    .divider {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .divider hr {
+      border: none;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── NOW SECTION ── */
+    .now-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .now-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+    }
+
+    .now-date {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-bottom: 1.25rem;
+    }
+
+    .now-text {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--text);
+    }
+
+    /* ── BUILDING SECTION ── */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: all 0.3s ease;
+      cursor: default;
+      position: relative;
+    }
+
+    .project-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .project-status {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      display: inline-block;
+      margin-bottom: 1.25rem;
+    }
+
+    .status-shipping {
+      color: #7ee8a8;
+      background: rgba(126, 232, 168, 0.1);
+      border: 1px solid rgba(126, 232, 168, 0.2);
+    }
+
+    .status-experimenting {
+      color: var(--accent);
+      background: var(--accent-glow);
+      border: 1px solid rgba(212, 160, 83, 0.2);
+    }
+
+    .status-thinking {
+      color: #8ba4e8;
+      background: rgba(139, 164, 232, 0.1);
+      border: 1px solid rgba(139, 164, 232, 0.2);
+    }
+
+    .project-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+
+    .project-tags span {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      background: var(--bg-surface);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* ── THINKING SECTION ── */
+    .thoughts-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .thought {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      border-left: 3px solid var(--accent);
+      transition: all 0.3s ease;
+    }
+
+    .thought:hover {
+      background: var(--bg-card-hover);
+    }
+
+    .thought-text {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 0.75rem;
+    }
+
+    .thought-meta {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── TOOLKIT SECTION ── */
+    .toolkit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .toolkit-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: all 0.3s ease;
+    }
+
+    .toolkit-item:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-secondary);
+    }
+
+    .toolkit-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .toolkit-item h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .toolkit-item p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── THE THREAD (TIMELINE) ── */
+    .timeline {
+      position: relative;
+      padding-left: 3rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), var(--border), transparent);
+    }
+
+    .timeline-entry {
+      position: relative;
+      margin-bottom: 3rem;
+      padding-bottom: 1rem;
+    }
+
+    .timeline-entry::before {
+      content: '';
+      position: absolute;
+      left: -3rem;
+      top: 0.5rem;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+      transform: translateX(-4px);
+    }
+
+    .timeline-year {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-entry h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-entry p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ── CONNECT SECTION ── */
+    .connect-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .connect-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.75rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .connect-link:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .connect-link svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--accent);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    footer .footer-tagline {
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(17, 17, 16, 0.98);
+        padding: 1.5rem;
+        gap: 1.25rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-toggle { display: block; }
+      .hero { padding: 7rem 1.5rem 4rem; }
+      section { padding: 4rem 1.5rem; }
+      .project-grid { grid-template-columns: 1fr; }
+      .toolkit-grid { grid-template-columns: 1fr; }
+      .timeline { padding-left: 2rem; }
+      .timeline-entry::before { left: -2rem; }
+      .now-content { padding: 1.75rem; }
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">sv://workshop</a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="#now">Now</a></li>
+      <li><a href="#building">Building</a></li>
+      <li><a href="#thinking">Thinking</a></li>
+      <li><a href="#toolkit">Toolkit</a></li>
+      <li><a href="#thread">The Thread</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-label">The Workshop</div>
+    <h1>I build things,<br>break things,<br>and <span class="highlight">write it down.</span></h1>
+    <p class="hero-sub">
+      I'm Sunil — a builder at the intersection of technology, community, and figuring out what comes next. This is my workbench. Come see what's on it.
+    </p>
+    <div class="scroll-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+      SCROLL
+    </div>
+  </header>
+
+  <div class="divider"><hr></div>
+
+  <!-- NOW -->
+  <section id="now" class="fade-in">
+    <div class="section-label">Now</div>
+    <h2 class="section-title">What I'm focused on</h2>
+    <div class="now-content">
+      <div class="now-date">Updated May 2026</div>
+      <p class="now-text">
+        Navigating a major career transition and leaning into it fully. Building side projects that scratch real itches. 
+        Thinking deeply about what it means to design the next chapter intentionally — not by default. 
+        Spending more time creating than consuming. Learning to say no to the safe path and yes to the interesting one.
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <!-- BUILDING -->
+  <section id="building" class="fade-in">
+    <div class="section-label">Building</div>
+    <h2 class="section-title">What's on the workbench</h2>
+    <p class="section-desc">Active projects, experiments, and things I'm tinkering with.</p>
+    <div class="project-grid">
+      <div class="project-card fade-in">
+        <span class="project-status status-shipping">Shipping</span>
+        <h3>Tuck</h3>
+        <p>A personal companion app for life's transitions — daily check-ins, journaling, and gentle nudges to stay intentional during big changes.</p>
+        <div class="project-tags">
+          <span>PWA</span>
+          <span>Node.js</span>
+          <span>Life Design</span>
+        </div>
+      </div>
+      <div class="project-card fade-in">
+        <span class="project-status status-experimenting">Experimenting</span>
+        <h3>This Website</h3>
+        <p>Building my personal corner of the internet. A living workshop that evolves as I do — not a static resume, but a space to think out loud.</p>
+        <div class="project-tags">
+          <span>HTML/CSS</span>
+          <span>Vercel</span>
+          <span>Personal Brand</span>
+        </div>
+      </div>
+      <div class="project-card fade-in">
+        <span class="project-status status-thinking">Thinking</span>
+        <h3>Dev Setup Tips</h3>
+        <p>A collection of opinionated guides for setting up development environments — the stuff I wish someone had handed me on day one.</p>
+        <div class="project-tags">
+          <span>Developer Tools</span>
+          <span>Guides</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <!-- THINKING -->
+  <section id="thinking" class="fade-in">
+    <div class="section-label">Thinking About</div>
+    <h2 class="section-title">Short-form sparks</h2>
+    <p class="section-desc">Not blog posts. Just things rattling around in my head.</p>
+    <div class="thoughts-feed">
+      <div class="thought fade-in">
+        <p class="thought-text">The best career moves I've seen aren't lateral or upward — they're diagonal. Into something adjacent that no one else saw coming.</p>
+        <div class="thought-meta">May 2026</div>
+      </div>
+      <div class="thought fade-in">
+        <p class="thought-text">We over-index on "what do you want to do?" and under-index on "what kind of day do you want to have?" The second question reveals more.</p>
+        <div class="thought-meta">April 2026</div>
+      </div>
+      <div class="thought fade-in">
+        <p class="thought-text">Building in public is underrated. Not for the audience — for the accountability. Knowing someone might look keeps you honest about your progress.</p>
+        <div class="thought-meta">April 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <!-- TOOLKIT -->
+  <section id="toolkit" class="fade-in">
+    <div class="section-label">Toolkit</div>
+    <h2 class="section-title">How I work</h2>
+    <p class="section-desc">The tools, technologies, and principles I reach for.</p>
+    <div class="toolkit-grid">
+      <div class="toolkit-item fade-in">
+        <div class="toolkit-icon">⚡</div>
+        <h3>Ship Fast, Fix Forward</h3>
+        <p>Bias toward action. Get it out, get feedback, iterate. Perfection is the enemy of progress.</p>
+      </div>
+      <div class="toolkit-item fade-in">
+        <div class="toolkit-icon">🛠️</div>
+        <h3>The Stack</h3>
+        <p>VS Code, GitHub Copilot, Node.js, HTML/CSS/JS, PowerShell, Azure, Vercel. Simple tools, used well.</p>
+      </div>
+      <div class="toolkit-item fade-in">
+        <div class="toolkit-icon">🧭</div>
+        <h3>Intentional by Default</h3>
+        <p>Daily check-ins, weekly reviews, quarterly recalibrations. Structure creates space for creativity.</p>
+      </div>
+      <div class="toolkit-item fade-in">
+        <div class="toolkit-icon">🤝</div>
+        <h3>Community First</h3>
+        <p>The best insights come from conversations, not documentation. Stay connected, stay curious.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <!-- THE THREAD -->
+  <section id="thread" class="fade-in">
+    <div class="section-label">The Thread</div>
+    <h2 class="section-title">How I got here</h2>
+    <p class="section-desc">Not a resume — the pivots and decisions that shaped the trajectory.</p>
+    <div class="timeline">
+      <div class="timeline-entry fade-in">
+        <div class="timeline-year">2026 — Now</div>
+        <h3>The Turn</h3>
+        <p>Choosing to step off the well-worn path and build something new. Designing the next chapter with intention, not inertia. Building in public, learning in the open.</p>
+      </div>
+      <div class="timeline-entry fade-in">
+        <div class="timeline-year">The Microsoft Years</div>
+        <h3>The Builder at Scale</h3>
+        <p>Over a decade of building products, leading teams, and shipping software used by millions. Learned what it means to operate at enterprise scale — and what it costs.</p>
+      </div>
+      <div class="timeline-entry fade-in">
+        <div class="timeline-year">The Foundation</div>
+        <h3>Where It Started</h3>
+        <p>Curiosity, code, and a stubborn belief that technology should make life better, not just more efficient. That thread hasn't changed.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <!-- CONNECT -->
+  <section id="connect" class="fade-in">
+    <div class="section-label">Connect</div>
+    <h2 class="section-title">Let's talk</h2>
+    <p class="section-desc">I'm always up for a conversation about building things, career transitions, or what comes next.</p>
+    <div class="connect-grid">
+      <a href="https://www.linkedin.com/in/sunilvenugopal" class="connect-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/sunilmsft" class="connect-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a href="mailto:hello@sunilvenugopal.com" class="connect-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-tagline">Built by hand. Shipped with intention.</p>
+    <p>&copy; 2026 Sunil Venugopal</p>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    // Scroll animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Nav scroll effect
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Close mobile nav on link click
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
