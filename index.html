@@ -344,78 +344,124 @@
     /* ── BUILDING SECTION ── */
     .project-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
     }
 
     .project-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 2rem;
+      padding: 1.75rem;
       transition: all 0.3s ease;
-      cursor: default;
       position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
-    .project-card:hover {
+    a.project-card {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    a.project-card:hover {
       background: var(--bg-card-hover);
       border-color: var(--accent);
       transform: translateY(-2px);
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
+    a.project-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
     .project-status {
       font-family: var(--mono);
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       padding: 0.25rem 0.75rem;
       border-radius: 100px;
       display: inline-block;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
+      width: fit-content;
     }
 
-    .status-shipping {
+    .status-active {
       color: #6ee7c0;
       background: rgba(110, 231, 192, 0.1);
       border: 1px solid rgba(110, 231, 192, 0.2);
     }
 
-    .status-experimenting {
+    .status-public {
       color: var(--accent-secondary);
       background: rgba(192, 132, 252, 0.1);
       border: 1px solid rgba(192, 132, 252, 0.2);
     }
 
-    .status-thinking {
+    .status-garden {
+      color: #fbbf24;
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+    }
+
+    .status-learning {
+      color: #60a5fa;
+      background: rgba(96, 165, 250, 0.1);
+      border: 1px solid rgba(96, 165, 250, 0.2);
+    }
+
+    .status-toolkit {
       color: var(--accent-tertiary);
       background: rgba(249, 168, 212, 0.1);
       border: 1px solid rgba(249, 168, 212, 0.2);
     }
 
+    .status-automation {
+      color: #a78bfa;
+      background: rgba(167, 139, 250, 0.1);
+      border: 1px solid rgba(167, 139, 250, 0.2);
+    }
+
     .project-card h3 {
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       font-weight: 600;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.6rem;
     }
 
     .project-card p {
       color: var(--text-muted);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       line-height: 1.7;
+      flex-grow: 1;
+    }
+
+    .project-cta {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-top: 1.25rem;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    a.project-card:hover .project-cta {
+      opacity: 1;
     }
 
     .project-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      margin-top: 1.25rem;
+      margin-top: 1rem;
     }
 
     .project-tags span {
       font-family: var(--mono);
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       color: var(--text-dim);
       background: var(--bg-surface);
       padding: 0.2rem 0.6rem;
@@ -849,38 +895,75 @@
   <!-- BUILDING -->
   <section id="building" class="fade-in">
     <div class="section-label">Building</div>
-    <h2 class="section-title">What's on the workbench</h2>
-    <p class="section-desc">Active projects, experiments, and things I'm tinkering with.</p>
+    <h2 class="section-title">On the workbench</h2>
+    <p class="section-desc">Projects, prototypes, and small experiments I'm shaping into useful things.</p>
     <div class="project-grid">
-      <div class="project-card fade-in">
-        <span class="project-status status-shipping">Shipping</span>
+      <a href="https://tuck-red.vercel.app" class="project-card fade-in" target="_blank" rel="noopener noreferrer">
+        <span class="project-status status-active">Active prototype</span>
         <h3>Tuck</h3>
-        <p>A personal companion app for life's transitions — daily check-ins, journaling, and gentle nudges to stay intentional during big changes.</p>
+        <p>A save-anything app for links, notes, photos, ideas, and memories — built around quick capture and finding things later.</p>
         <div class="project-tags">
           <span>PWA</span>
-          <span>Node.js</span>
-          <span>Life Design</span>
+          <span>Product Design</span>
+          <span>Personal Tools</span>
         </div>
-      </div>
-      <div class="project-card fade-in">
-        <span class="project-status status-experimenting">Experimenting</span>
-        <h3>This Website</h3>
-        <p>Building my personal corner of the internet. A living workshop that evolves as I do — not a static resume, but a space to think out loud.</p>
+        <div class="project-cta">View project →</div>
+      </a>
+      <a href="https://github.com/sunilmsft/sunilvenugopal.com" class="project-card fade-in" target="_blank" rel="noopener noreferrer">
+        <span class="project-status status-public">Building in public</span>
+        <h3>sunilvenugopal.com</h3>
+        <p>My personal corner of the internet — a living workshop for projects, notes, experiments, and the next chapter.</p>
         <div class="project-tags">
           <span>HTML/CSS</span>
-          <span>Vercel</span>
-          <span>Personal Brand</span>
+          <span>Personal Site</span>
+          <span>Building in Public</span>
         </div>
-      </div>
-      <div class="project-card fade-in">
-        <span class="project-status status-thinking">Thinking</span>
+        <div class="project-cta">View project →</div>
+      </a>
+      <a href="https://github.com/sunilmsft/side-project-ideas" class="project-card fade-in" target="_blank" rel="noopener noreferrer">
+        <span class="project-status status-garden">Idea garden</span>
+        <h3>Side Project Ideas</h3>
+        <p>A running collection of everyday problems, product sparks, and ideas worth pressure-testing.</p>
+        <div class="project-tags">
+          <span>Product Thinking</span>
+          <span>Ideas</span>
+          <span>Experiments</span>
+        </div>
+        <div class="project-cta">View project →</div>
+      </a>
+      <a href="https://github.com/sunilmsft/dev-setup-tips" class="project-card fade-in" target="_blank" rel="noopener noreferrer">
+        <span class="project-status status-learning">Learning build</span>
         <h3>Dev Setup Tips</h3>
-        <p>A collection of opinionated guides for setting up development environments — the stuff I wish someone had handed me on day one.</p>
+        <p>Practical setup notes and guides for getting a development environment ready without the usual guesswork.</p>
         <div class="project-tags">
           <span>Developer Tools</span>
           <span>Guides</span>
+          <span>Learning</span>
         </div>
-      </div>
+        <div class="project-cta">View project →</div>
+      </a>
+      <a href="https://github.com/sunilmsft/prep-life-after-ms" class="project-card fade-in" target="_blank" rel="noopener noreferrer">
+        <span class="project-status status-toolkit">Personal toolkit</span>
+        <h3>Next Chapter Planner</h3>
+        <p>A personal planning toolkit for organizing decisions, tasks, and what comes next during a transition.</p>
+        <div class="project-tags">
+          <span>Life Design</span>
+          <span>Planning</span>
+          <span>Personal Tools</span>
+        </div>
+        <div class="project-cta">View project →</div>
+      </a>
+      <a href="https://github.com/sunilmsft/lunch-menu-notifier" class="project-card fade-in" target="_blank" rel="noopener noreferrer">
+        <span class="project-status status-automation">Everyday automation</span>
+        <h3>Lunch Menu Notifier</h3>
+        <p>A simple notifier that answers the daily question: what's for lunch today?</p>
+        <div class="project-tags">
+          <span>Automation</span>
+          <span>Everyday Tools</span>
+          <span>Practical Build</span>
+        </div>
+        <div class="project-cta">View project →</div>
+      </a>
     </div>
   </section>
 
