@@ -163,10 +163,10 @@
     }
 
     .hero-sub {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--text-muted);
       max-width: 560px;
-      line-height: 1.8;
+      line-height: 1.75;
       font-weight: 300;
     }
 
@@ -224,10 +224,10 @@
     }
 
     .section-title {
-      font-size: 2rem;
+      font-size: 1.75rem;
       font-weight: 600;
       margin-bottom: 1rem;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
     }
 
     .section-desc {
@@ -254,9 +254,10 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 2.5rem;
+      padding: 1.75rem 2rem;
       position: relative;
       overflow: hidden;
+      max-width: 720px;
     }
 
     .now-content::before {
@@ -264,22 +265,80 @@
       position: absolute;
       top: 0;
       left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-secondary), var(--accent-tertiary));
+      width: 3px;
+      bottom: 0;
+      background: linear-gradient(to bottom, var(--accent), var(--accent-secondary), transparent);
+      border-radius: 3px 0 0 3px;
     }
 
     .now-date {
       font-family: var(--mono);
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--text-dim);
-      margin-bottom: 1.25rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+      padding-left: 0.25rem;
     }
 
-    .now-text {
-      font-size: 1.15rem;
-      line-height: 1.9;
+    .now-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .now-row {
+      display: grid;
+      grid-template-columns: 2rem 1fr;
+      gap: 1.25rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+      align-items: first baseline;
+    }
+
+    .now-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .now-row:first-child {
+      padding-top: 0;
+    }
+
+    .now-row-marker {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      opacity: 0.5;
+      padding-top: 0.15rem;
+    }
+
+    .now-row-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .now-row-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .now-row-text {
+      font-size: 0.95rem;
+      line-height: 1.7;
       color: var(--text);
+      font-weight: 300;
+    }
+
+    @media (max-width: 768px) {
+      .now-row {
+        grid-template-columns: 1.5rem 1fr;
+        gap: 0.75rem;
+      }
     }
 
     /* ── BUILDING SECTION ── */
@@ -759,11 +818,29 @@
     <h2 class="section-title">What I'm focused on</h2>
     <div class="now-content">
       <div class="now-date">Updated May 2026</div>
-      <p class="now-text">
-        Navigating a major career transition and leaning into it fully. Building side projects that scratch real itches. 
-        Thinking deeply about what it means to design the next chapter intentionally — not by default. 
-        Spending more time creating than consuming. Learning to say no to the safe path and yes to the interesting one.
-      </p>
+      <div class="now-rows">
+        <div class="now-row">
+          <div class="now-row-marker">01</div>
+          <div class="now-row-body">
+            <div class="now-row-label">Current season</div>
+            <div class="now-row-text">Stepping back, looking ahead, and being more intentional about what I build next.</div>
+          </div>
+        </div>
+        <div class="now-row">
+          <div class="now-row-marker">02</div>
+          <div class="now-row-body">
+            <div class="now-row-label">On the workbench</div>
+            <div class="now-row-text">Practical AI experiments, side-project prototypes, and everyday problems worth solving.</div>
+          </div>
+        </div>
+        <div class="now-row">
+          <div class="now-row-marker">03</div>
+          <div class="now-row-body">
+            <div class="now-row-label">Operating mode</div>
+            <div class="now-row-text">Build useful things, learn in public, and shape the next chapter with purpose.</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
