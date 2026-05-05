@@ -206,20 +206,21 @@
 
     .section-label {
       font-family: var(--mono);
-      font-size: 0.75rem;
+      font-size: 0.85rem;
       color: var(--accent);
-      letter-spacing: 0.15em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      filter: brightness(1.1);
     }
 
     .section-label::before {
       content: '';
-      width: 24px;
-      height: 1px;
+      width: 32px;
+      height: 2px;
       background: var(--accent);
     }
 
@@ -527,38 +528,59 @@
     /* ── TOOLKIT SECTION ── */
     .toolkit-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .toolkit-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .toolkit-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-      transition: all 0.3s ease;
+      padding: 1.5rem;
+      border-left: 2px solid var(--border-subtle);
+      transition: border-color 0.3s ease;
     }
 
     .toolkit-item:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--accent-secondary);
+      border-left-color: var(--accent);
     }
 
-    .toolkit-icon {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+    .toolkit-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .toolkit-num {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .toolkit-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
     .toolkit-item h3 {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
     }
 
     .toolkit-item p {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--text-muted);
       line-height: 1.7;
+      font-weight: 300;
     }
 
     /* ── THE THREAD (TIMELINE) ── */
@@ -1023,28 +1045,40 @@
   <!-- TOOLKIT -->
   <section id="toolkit" class="fade-in">
     <div class="section-label">Toolkit</div>
-    <h2 class="section-title">How I work</h2>
-    <p class="section-desc">The tools, technologies, and principles I reach for.</p>
+    <h2 class="section-title">How I build</h2>
+    <p class="section-desc">A practical toolkit for turning rough ideas into something I can test, learn from, and improve.</p>
     <div class="toolkit-grid">
       <div class="toolkit-item fade-in">
-        <div class="toolkit-icon">⚡</div>
-        <h3>Ship Fast, Fix Forward</h3>
-        <p>Bias toward action. Get it out, get feedback, iterate. Perfection is the enemy of progress.</p>
+        <div class="toolkit-header">
+          <span class="toolkit-num">01</span>
+          <span class="toolkit-label">AI + Build</span>
+        </div>
+        <h3>AI-assisted prototyping</h3>
+        <p>Using AI coding tools to move from idea to working prototype faster — while staying hands-on with product judgment, UX, and tradeoffs.</p>
       </div>
       <div class="toolkit-item fade-in">
-        <div class="toolkit-icon">🛠️</div>
-        <h3>The Stack</h3>
-        <p>VS Code, GitHub Copilot, Node.js, HTML/CSS/JS, PowerShell, Azure, Vercel. Simple tools, used well.</p>
+        <div class="toolkit-header">
+          <span class="toolkit-num">02</span>
+          <span class="toolkit-label">PM Craft</span>
+        </div>
+        <h3>Product thinking</h3>
+        <p>Starting with the problem, the user, and the moment of friction before jumping into features.</p>
       </div>
       <div class="toolkit-item fade-in">
-        <div class="toolkit-icon">🧭</div>
-        <h3>Intentional by Default</h3>
-        <p>Daily check-ins, weekly reviews, quarterly recalibrations. Structure creates space for creativity.</p>
+        <div class="toolkit-header">
+          <span class="toolkit-num">03</span>
+          <span class="toolkit-label">Documentation</span>
+        </div>
+        <h3>Notes as infrastructure</h3>
+        <p>Keeping decisions, prompts, backlog, and lessons written down so projects don't disappear into scattered chats and tabs.</p>
       </div>
       <div class="toolkit-item fade-in">
-        <div class="toolkit-icon">🤝</div>
-        <h3>Community First</h3>
-        <p>The best insights come from conversations, not documentation. Stay connected, stay curious.</p>
+        <div class="toolkit-header">
+          <span class="toolkit-num">04</span>
+          <span class="toolkit-label">Iteration</span>
+        </div>
+        <h3>Small bets</h3>
+        <p>Building in small, testable steps instead of waiting for the perfect version.</p>
       </div>
     </div>
   </section>
